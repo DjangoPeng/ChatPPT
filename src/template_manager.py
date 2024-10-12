@@ -13,3 +13,4 @@ def get_layout_mapping(prs: Presentation) -> dict:
 def print_layouts(prs: Presentation):
     for idx, layout in enumerate(prs.slide_layouts):
         print(f"Layout {idx}: {layout.name}")
+
