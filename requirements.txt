@@ -1,0 +1,2 @@
+python-pptx==0.6.21
+loguru==0.7.2
