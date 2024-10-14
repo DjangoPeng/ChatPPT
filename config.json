@@ -1,0 +1,10 @@
+{
+    "input_mode": "text",
+    "ppt_template": "templates/MasterTemplate.pptx",
+    "layout_mapping": {
+        "Title Only": 0,
+        "Title and Content": 1,
+        "Title and Picture": 2,
+        "Title, Content, and Picture": 3
+    }
+}
