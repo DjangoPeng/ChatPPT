@@ -166,3 +166,4 @@ cython_debug/
 outputs/*
 tests/*
 .DS_STore
+jupyter/*.pptx
