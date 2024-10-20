@@ -24,7 +24,6 @@ def main(input_file):
     prs = load_template(config.ppt_template)  # 加载模板文件
     LOG.info("可用的幻灯片布局:")  # 记录信息日志，打印可用布局
     print_layouts(prs)  # 打印模板中的布局
-    layout_mapping = get_layout_mapping(prs)  # 获取布局映射
 
     # 初始化 LayoutManager，使用配置文件中的 layout_mapping
     layout_manager = LayoutManager(config.layout_mapping)
@@ -32,7 +31,7 @@ def main(input_file):
     # 调用 parse_input_text 函数，解析输入文本，生成 PowerPoint 数据结构
     powerpoint_data, presentation_title = parse_input_text(input_text, layout_manager)
 
-    LOG.debug(f"解析的 PowerPoint 数据: {powerpoint_data}")  # 记录调试日志，打印解析后的 PowerPoint 数据
+    LOG.info(f"解析转换后的 ChatPPT PowerPoint 数据结构:\n{powerpoint_data}")  # 记录调试日志，打印解析后的 PowerPoint 数据
 
     # 定义输出 PowerPoint 文件的路径
     output_pptx = f"outputs/{presentation_title}.pptx"

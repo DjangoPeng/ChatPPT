@@ -3,6 +3,8 @@ from typing import Tuple
 
 from data_structures import SlideContent
 
+# TODO: 为每一种布局策略（LayoutStrategy 子类）准备一组候选的布局组（LayoutGroup）。
+# TODO：定义布局策略标准，扩充母版库时校验布局名称（LayoutName）和占位符（Placeholder）。
 # 抽象布局策略基类，所有布局策略都需要继承该类，并实现 get_layout 方法。
 class LayoutStrategy(ABC):
     """
