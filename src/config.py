@@ -19,6 +19,9 @@ class Config:
             
             # 加载 PPT 默认模板
             self.ppt_template = config.get('ppt_template', "templates/MasterTemplate.pptx")
+
+            # 加载 ChatBot Prompt
+            self.chatbot_prompt = config.get('chatbot_prompt', '')
             
             # 加载布局映射
             self.layout_mapping = config.get('layout_mapping', {})

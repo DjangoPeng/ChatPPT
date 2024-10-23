@@ -167,3 +167,4 @@ outputs/*
 tests/*
 .DS_STore
 jupyter/*.pptx
+.gradio/*
