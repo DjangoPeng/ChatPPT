@@ -2,7 +2,7 @@ import os
 import argparse
 from input_parser import parse_input_text
 from ppt_generator import generate_presentation
-from template_manager import load_template, get_layout_mapping, print_layouts
+from template_manager import load_template, print_layouts
 from layout_manager import LayoutManager
 from config import Config
 from logger import LOG  # 引入 LOG 模块
