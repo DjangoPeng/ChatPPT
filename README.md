@@ -64,7 +64,7 @@ python src/main.py test_input.md
 
 ## PowerPoint 母版布局命名规范
 
-为确保 ChatPPT 能正确匹配布局，PowerPoint 母版文件 (`ppt_template`) 中的布局名称应遵循以下命名规范：
+为确保 ChatPPT 能正确匹配布局，PowerPoint 母版文件 （[PowerPoint 模板](templates/MasterTemplate.pptx)） 中的布局名称应遵循以下命名规范：
 
 - 布局名称应以 `{type}, {type}, {type} {No.}` 的形式命名，其中 `{type}` 是内容类型，如 `Title`, `Content`, `Picture`，例如：
   - `Title 0`
