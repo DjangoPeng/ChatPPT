@@ -1,11 +1,5 @@
 {
     "input_mode": "text",
     "chatbot_prompt": "prompts/chatbot.txt",
-    "ppt_template": "templates/MasterTemplate.pptx",
-    "layout_mapping": {
-        "Title Only": 0,
-        "Title and Content": 1,
-        "Title and Picture": 2,
-        "Title, Content, and Picture": 3
-    }
+    "ppt_template": "templates/MasterTemplate.pptx"
 }
