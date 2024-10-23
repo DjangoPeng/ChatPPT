@@ -22,6 +22,3 @@ class Config:
 
             # 加载 ChatBot Prompt
             self.chatbot_prompt = config.get('chatbot_prompt', '')
-            
-            # 加载布局映射
-            self.layout_mapping = config.get('layout_mapping', {})

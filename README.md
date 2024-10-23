@@ -13,7 +13,10 @@ ChatPPT 是一个基于多模态 AI 技术的智能助手，旨在提升企业�
 
 ### 产品截图
 
+![chatppt_presentation_demo](images/chatppt_presentation_demo.jpg)
+
 **自动生成的演示文稿内容**
+
 ![chatppt_presentation_demo](images/chatppt_presentation_demo.png)
 
 ## 快速开始
@@ -28,23 +31,28 @@ pip install -r requirements.txt
 
 ### 2. 配置应用
 
-编辑 `config.json` 文件，以设置输入模式、默认模板（PPT 母版）以及对应的布局映射，确保模板文件 `StandardTemplate.pptx` 中的母版布局名称与 `config.json` 中的名称一致。例如：
+编辑 `config.json` 文件，以设置输入模式、默认模板（PPT 母版）以及 ChatBot Prompt，确保模板文件 `MasterTemplate.pptx` 中的母版布局名称符合[PowerPoint 母版布局命名规范](#powerpoint-母版布局命名规范)。
+
 
 ```json
 {
     "input_mode": "text",
-    "default_template": "templates/StandardTemplate.pptx",
-    "layout_mapping": {
-        "Title Only": 1,
-        "Title and Content": 2,
-        "Title and Picture": 3,
-        "Title, Content, and Picture": 4
-    }
-
+    "chatbot_prompt": "prompts/chatbot.txt",
+    "ppt_template": "templates/MasterTemplate.pptx"
 }
 ```
 
 ### 3. 如何运行
+
+#### A. 作为 Gradio 服务运行
+
+要使用 Gradio 界面运行应用，允许用户通过 Web 界面与该工具交互：
+
+```sh
+python src/gradio_server.py
+```
+
+#### 命令行方式运行
 
 您可以通过命令行模式运行 ChatPPT：
 
@@ -52,17 +60,32 @@ pip install -r requirements.txt
 python src/main.py test_input.md
 ```
 
-通过此模式，您可以手动提供 PowerPoint 文件内容（格式请参考：[ChatPPT 输入文本格式说明](docs/ppt_input_format.md)），并按照配置的 [PowerPoint 模板](templates/StandardTemplate.pptx),生成演示文稿。
+通过此模式，您可以手动提供 PowerPoint 文件内容（格式请参考：[ChatPPT 输入文本格式说明](docs/ppt_input_format.md)），并按照配置的 [PowerPoint 模板](templates/MasterTemplate.pptx),生成演示文稿。
 
-## 贡献
+## PowerPoint 母版布局命名规范
+
+为确保 ChatPPT 能正确匹配布局，PowerPoint 母版文件 (`ppt_template`) 中的布局名称应遵循以下命名规范：
+
+- 布局名称应以 `{type}, {type}, {type} {No.}` 的形式命名，其中 `{type}` 是内容类型，如 `Title`, `Content`, `Picture`，例如：
+  - `Title 0`
+  - `Title, Content 1`
+  - `Title, Picture 5`
+  - `Title, Content, Picture 2`
+  
+- 布局名称的顺序和数量必须与输入内容一致（例如，具有标题、要点和图片的幻灯片应映射到 `Title, Content, Picture` 布局）。
+- 布局后缀 `{No.}` 用于表示同类布局中的不同编号，以支持多种同类布局。
+  
+该规范确保布局匹配的灵活性，同时支持多种不同内容的组合和扩展。
+
+### 4. 贡献
 
 我们欢迎所有的贡献！如果你有任何建议或功能请求，请先开启一个议题讨论。你的帮助将使 ChatPPT 变得更加完善。
 
-## 许可证
+### 5. 许可证
 
-该项目根据 MIT 许可证进行许可。详情请参见 [LICENSE](LICENSE) 文件。
+该项目根据 **Apache 2.0** 许可证进行许可。详情请参见 [LICENSE](LICENSE) 文件。
 
-## 联系
+### 6. 联系
 
 项目作者: Django Peng
 
