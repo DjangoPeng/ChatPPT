@@ -4,7 +4,7 @@ from config import Config
 from chatbot import ChatBot
 from input_parser import parse_input_text
 from ppt_generator import generate_presentation
-from template_manager import load_template, print_layouts
+from template_manager import load_template, print_layouts, get_layout_mapping
 from layout_manager import LayoutManager
 from logger import LOG  # 引入 LOG 模块
 
@@ -12,12 +12,12 @@ from logger import LOG  # 引入 LOG 模块
 config = Config()
 chatbot = ChatBot(config.chatbot_prompt)
 # 加载 PowerPoint 模板，并打印模板中的可用布局
-prs = load_template(config.ppt_template)  # 加载模板文件
+ppt_template = load_template(config.ppt_template)  # 加载模板文件
 LOG.info("可用的幻灯片布局:")  # 记录信息日志，打印可用布局
-print_layouts(prs)  # 打印模板中的布局
+print_layouts(ppt_template)  # 打印模板中的布局
 
 # 初始化 LayoutManager，使用配置文件中的 layout_mapping
-layout_manager = LayoutManager(config.layout_mapping)
+layout_manager = LayoutManager(get_layout_mapping(ppt_template))
 
 
 def generate_contents(message, history):
