@@ -6,6 +6,23 @@ from slide_builder import SlideBuilder
 from layout_manager import LayoutManager
 from logger import LOG  # 引入日志模块
 
+def parse_bullet_point_level(line: str) -> (int, str):
+    """
+    根据项目符号行解析其缩进层级，并返回项目符号的文本内容。
+    """
+    # 计算前导空格或 Tab 的数量
+    indent_length = len(line) - len(line.lstrip())
+
+    # 每 2 个空格算作一个缩进级别，或者根据实际的缩进规则
+    indent_level = indent_length // 2
+
+    LOG.debug(indent_level)
+    LOG.debug(line)
+
+    bullet_text = line.strip().lstrip('- ').strip()  # 去除 '-' 并处理前后空格，得到项目符号内容
+    return indent_level, bullet_text
+
+
 # 解析输入文本，生成 PowerPoint 数据结构
 def parse_input_text(input_text: str, layout_manager: LayoutManager) -> PowerPoint:
     """
@@ -18,17 +35,17 @@ def parse_input_text(input_text: str, layout_manager: LayoutManager) -> PowerPoi
 
     # 正则表达式，用于匹配幻灯片标题、要点和图片
     slide_title_pattern = re.compile(r'^##\s+(.*)')
-    bullet_pattern = re.compile(r'^-\s+(.*)')
+    bullet_pattern = re.compile(r'^(\s*)-\s+(.*)')
     image_pattern = re.compile(r'!\[.*?\]\((.*?)\)')
 
     for line in lines:
-        line = line.strip()  # 去除空格
+        if line.strip() == "":
+            continue  # 跳过空行
 
         # 主标题 (用作 PowerPoint 的标题和文件名)
         if line.startswith('# ') and not line.startswith('##'):
             presentation_title = line[2:].strip()
 
-            # 创建第一张幻灯片，使用 "Title Only" 布局
             first_slide_builder = SlideBuilder(layout_manager)
             first_slide_builder.set_title(presentation_title)
             slides.append(first_slide_builder.finalize())
@@ -48,11 +65,15 @@ def parse_input_text(input_text: str, layout_manager: LayoutManager) -> PowerPoi
                 slide_builder.set_title(title)
 
         # 项目符号（要点）
-        elif line.startswith('- ') and slide_builder:
+        elif bullet_pattern.match(line) and slide_builder:
             match = bullet_pattern.match(line)
             if match:
-                bullet = match.group(1).strip()
-                slide_builder.add_bullet_point(bullet)
+                indent_spaces, bullet = match.groups()  # 获取缩进空格和项目符号内容
+                indent_level = len(indent_spaces) // 2  # 计算缩进层级，每 2 个空格为一级
+                bullet_text = bullet.strip()  # 获取项目符号的文本内容
+
+                # 根据层级添加要点
+                slide_builder.add_bullet_point(bullet_text, level=indent_level)
 
         # 图片插入
         elif line.startswith('![') and slide_builder:
