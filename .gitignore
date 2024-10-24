@@ -163,7 +163,7 @@ cython_debug/
 
 
 # ChatPPT custom config
-outputs/*
+outputs/*.pptx
 tests/*
 .DS_STore
 jupyter/*.pptx
