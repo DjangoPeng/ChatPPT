@@ -73,7 +73,7 @@ class LayoutManager:
         }
 
         # 打印调试信息
-        LOG.debug(f"LayoutManager 初始化完成: {self}")
+        LOG.debug(f"LayoutManager 初始化完成:\n {self}")
 
     def __str__(self):
         """
