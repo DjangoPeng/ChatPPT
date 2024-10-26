@@ -168,3 +168,4 @@ tests/*
 .DS_STore
 jupyter/*.pptx
 .gradio/*
+nohup.out
