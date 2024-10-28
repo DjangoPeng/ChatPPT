@@ -20,6 +20,7 @@ class ChatBot(ABC):
         self.prompt_file = prompt_file
         self.session_id = session_id if session_id else "default_session_id"
         self.prompt = self.load_prompt()
+        LOG.debug(f"[chatbot prompt]{self.prompt}")
         self.create_chatbot()
 
     def load_prompt(self):
