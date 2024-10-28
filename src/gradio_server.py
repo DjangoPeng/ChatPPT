@@ -46,6 +46,7 @@ def generate_contents(message, history):
 
         # 将所有文本和转录结果合并为一个字符串，作为用户需求
         user_requirement = "需求如下:\n" + "\n".join(texts)
+        LOG.info(user_requirement)
 
         # 与聊天机器人进行对话，生成幻灯片内容
         slides_content = chatbot.chat_with_history(user_requirement)
