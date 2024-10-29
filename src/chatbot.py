@@ -1,6 +1,5 @@
 # chatbot.py
 
-import json
 from abc import ABC, abstractmethod
 
 from langchain_openai import ChatOpenAI
@@ -16,11 +15,11 @@ class ChatBot(ABC):
     """
     聊天机器人基类，提供聊天功能。
     """
-    def __init__(self, prompt_file, session_id=None):
+    def __init__(self, prompt_file="./prompts/chatbot.txt", session_id=None):
         self.prompt_file = prompt_file
         self.session_id = session_id if session_id else "default_session_id"
         self.prompt = self.load_prompt()
-        LOG.debug(f"[chatbot prompt]{self.prompt}")
+        # LOG.debug(f"[ChatBot Prompt]{self.prompt}")
         self.create_chatbot()
 
     def load_prompt(self):
