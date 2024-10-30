@@ -169,3 +169,4 @@ tests/*
 jupyter/*.pptx
 .gradio/*
 nohup.out
+images/*

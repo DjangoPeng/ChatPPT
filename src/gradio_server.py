@@ -3,16 +3,23 @@ import os
 
 from config import Config
 from chatbot import ChatBot
+from content_formatter import ContentFormatter
+from content_assistant import ContentAssistant
 from input_parser import parse_input_text
 from ppt_generator import generate_presentation
 from template_manager import load_template, get_layout_mapping
 from layout_manager import LayoutManager
 from logger import LOG
 from openai_whisper import asr, transcribe
+from minicpm_v_model import chat_with_image
+from docx_parser import generate_markdown_from_docx
+
 
 # 实例化 Config，加载配置文件
 config = Config()
 chatbot = ChatBot(config.chatbot_prompt)
+content_formatter = ContentFormatter(config.content_formatter_prompt)
+content_assistant = ContentAssistant(config.content_assistant_prompt)
 
 # 加载 PowerPoint 模板，并获取可用布局
 ppt_template = load_template(config.ppt_template)
@@ -34,13 +41,26 @@ def generate_contents(message, history):
 
         # 获取上传的文件列表，如果存在则处理每个文件
         for uploaded_file in message.get("files", []):
+            LOG.debug(f"[上传文件]: {uploaded_file}")
             # 获取文件的扩展名，并转换为小写
             file_ext = os.path.splitext(uploaded_file)[1].lower()
             if file_ext in ('.wav', '.flac', '.mp3'):
-                LOG.debug(f"[音频文件]: {uploaded_file}")
                 # 使用 OpenAI Whisper 模型进行语音识别
                 audio_text = asr(uploaded_file)
                 texts.append(audio_text)
+            # 解释说明图像文件
+            elif file_ext in ('.jpg', '.png', '.jpeg'):
+                if text_input:
+                    image_desc = chat_with_image(uploaded_file, text_input)
+                else:
+                    image_desc = chat_with_image(uploaded_file)
+                return image_desc
+            # 使用 Docx 文件作为素材创建 PowerPoint
+            elif file_ext in ('.docx', '.doc'):
+                # 调用 generate_markdown_from_docx 函数，获取 markdown 内容
+                raw_content = generate_markdown_from_docx(uploaded_file)
+                markdown_content = content_formatter.format(raw_content)
+                return content_assistant.adjust_single_picture(markdown_content)
             else:
                 LOG.debug(f"[格式不支持]: {uploaded_file}")
 

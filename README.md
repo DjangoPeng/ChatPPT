@@ -38,11 +38,15 @@ pip install -r requirements.txt
 {
     "input_mode": "text",
     "chatbot_prompt": "prompts/chatbot.txt",
-    "ppt_template": "templates/MasterTemplate.pptx"
+    "content_formatter_prompt": "prompts/content_formatter.txt",
+    "content_assistant_prompt": "prompts/content_assistant.txt",
+    "ppt_template": "templates/SimpleTemplate.pptx"
 }
 ```
 
 ### 3. 如何运行
+
+作为生产服务发布，ChatPPT 还需要配置域名，SSL 证书和反向代理，详见文档:**[域名和反向代理设置说明文档](docs/proxy.md)**
 
 #### A. 作为 Gradio 服务运行
 
