@@ -15,3 +15,6 @@ accelerate==1.0.1
 librosa==0.10.2.post1
 soundfile==0.12.1
 ffmpeg==1.4
+torchvision==0.20.0
+sentencepiece==0.1.99
+bitsandbytes==0.44.1

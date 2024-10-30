@@ -1,6 +1,4 @@
-# formatter.py
-
-
+# content_formatter.py
 from abc import ABC, abstractmethod
 
 from langchain_openai import ChatOpenAI
@@ -10,12 +8,11 @@ from langchain_core.runnables.history import RunnableWithMessageHistory  # 导�
 
 from logger import LOG  # 导入日志工具
 
-
 class ContentFormatter(ABC):
     """
     聊天机器人基类，提供聊天功能。
     """
-    def __init__(self, prompt_file="./prompts/formatter.txt", session_id=None):
+    def __init__(self, prompt_file="./prompts/content_formatter.txt"):
         self.prompt_file = prompt_file
         self.prompt = self.load_prompt()
         # LOG.debug(f"[Formatter Prompt]{self.prompt}")
@@ -41,14 +38,13 @@ class ContentFormatter(ABC):
             ("system", self.prompt),  # 系统提示部分
             ("human", "{input}"),  # 消息占位符
         ])
-
+        
         self.model = ChatOpenAI(
             model="gpt-4o-mini",
             temperature=0.5,
             max_tokens=4096,
         )
-
-        # 初始化 ChatOllama 模型，配置参数
+        
         self.formatter = system_prompt | self.model  # 使用的模型名称)
 
 

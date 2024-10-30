@@ -7,6 +7,7 @@ from layout_manager import LayoutManager
 from config import Config
 from logger import LOG  # 引入 LOG 模块
 from content_formatter import ContentFormatter
+from content_assistant import ContentAssistant
 
 # 新增导入 docx_parser 模块中的函数
 from docx_parser import generate_markdown_from_docx
@@ -15,6 +16,7 @@ from docx_parser import generate_markdown_from_docx
 def main(input_file):
     config = Config()  # 加载配置文件
     content_formatter = ContentFormatter()
+    content_assistant = ContentAssistant()
 
     # 检查输入文件是否存在
     if not os.path.exists(input_file):
@@ -33,9 +35,8 @@ def main(input_file):
         LOG.info(f"正在解析 docx 文件: {input_file}")
         # 调用 generate_markdown_from_docx 函数，获取 markdown 内容
         raw_content = generate_markdown_from_docx(input_file)
-        # 使用 LOG.debug 记录 markdown_content 内容
-
-        input_text = content_formatter.format(raw_content)
+        markdown_content = content_formatter.format(raw_content)
+        input_text = content_assistant.adjust_single_picture(markdown_content)
     else:
         # 不支持的文件类型
         LOG.error(f"暂不支持的文件格式: {file_extension}")

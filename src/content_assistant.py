@@ -1,5 +1,4 @@
-# chatbot.py
-
+# content_assistant.py
 from abc import ABC, abstractmethod
 
 from langchain_openai import ChatOpenAI
@@ -8,19 +7,16 @@ from langchain_core.messages import HumanMessage  # 导入消息类
 from langchain_core.runnables.history import RunnableWithMessageHistory  # 导入带有消息历史的可运行类
 
 from logger import LOG  # 导入日志工具
-from chat_history import get_session_history
 
-
-class ChatBot(ABC):
+class ContentAssistant(ABC):
     """
     聊天机器人基类，提供聊天功能。
     """
-    def __init__(self, prompt_file="./prompts/chatbot.txt", session_id=None):
+    def __init__(self, prompt_file="./prompts/content_assistant.txt"):
         self.prompt_file = prompt_file
-        self.session_id = session_id if session_id else "default_session_id"
         self.prompt = self.load_prompt()
-        # LOG.debug(f"[ChatBot Prompt]{self.prompt}")
-        self.create_chatbot()
+        # LOG.debug(f"[Formatter Prompt]{self.prompt}")
+        self.create_assistant()
 
     def load_prompt(self):
         """
@@ -33,45 +29,37 @@ class ChatBot(ABC):
             raise FileNotFoundError(f"找不到提示文件 {self.prompt_file}!")
 
 
-    def create_chatbot(self):
+    def create_assistant(self):
         """
         初始化聊天机器人，包括系统提示和消息历史记录。
         """
         # 创建聊天提示模板，包括系统提示和消息占位符
         system_prompt = ChatPromptTemplate.from_messages([
             ("system", self.prompt),  # 系统提示部分
-            MessagesPlaceholder(variable_name="messages"),  # 消息占位符
+            ("human", "{input}"),  # 消息占位符
         ])
 
-        # 初始化 ChatOllama 模型，配置参数
-        self.chatbot = system_prompt | ChatOpenAI(
+        self.model = ChatOpenAI(
             model="gpt-4o-mini",
             temperature=0.5,
-            max_tokens=4096
+            max_tokens=4096,
         )
 
-        # 将聊天机器人与消息历史记录关联
-        self.chatbot_with_history = RunnableWithMessageHistory(self.chatbot, get_session_history)
+        self.assistant = system_prompt | self.model  # 使用的模型名称)
 
-
-    def chat_with_history(self, user_input, session_id=None):
+    def adjust_single_picture(self, markdown_content):
         """
-        处理用户输入，生成包含聊天历史的回复。
+        
 
         参数:
-            user_input (str): 用户输入的消息
-            session_id (str, optional): 会话的唯一标识符
+            markdown_content (str): PowerPoint markdown 原始格式
 
         返回:
-            str: AI 生成的回复
+            str: 格式化后的 markdown 内容
         """
-        if session_id is None:
-            session_id = self.session_id
-    
-        response = self.chatbot_with_history.invoke(
-            [HumanMessage(content=user_input)],  # 将用户输入封装为 HumanMessage
-            {"configurable": {"session_id": session_id}},  # 传入配置，包括会话ID
-        )
+        response = self.assistant.invoke({
+            "input": markdown_content,
+        })
 
-        LOG.debug(f"[ChatBot] {response.content}")  # 记录调试日志
+        LOG.debug(f"[Assistant 内容重构后]\n{response.content}")  # 记录调试日志
         return response.content  # 返回生成的回复内容
