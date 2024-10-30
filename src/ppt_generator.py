@@ -37,8 +37,7 @@ def format_text(paragraph, text):
 def insert_image_centered_in_placeholder(new_slide, image_path):
     """
     将图片插入到 Slide 中，使其中心与 placeholder 的中心对齐。
-    如果图片尺寸超过 placeholder，则进行缩小适配。
-    在插入成功后删除 placeholder。
+    同时根据宽度和高度来适配图片，使其完全填满 placeholder，但不超出边界。
     """
     # 构建图片的绝对路径
     image_full_path = os.path.join(os.getcwd(), image_path)
@@ -68,11 +67,12 @@ def insert_image_centered_in_placeholder(new_slide, image_path):
             img_width = Inches(img_width_px / 96)  # 假设图片 DPI 为 96
             img_height = Inches(img_height_px / 96)
 
-            # 如果图片的宽度或高度超过 placeholder，按比例缩放图片
-            if img_width > placeholder_width or img_height > placeholder_height:
-                scale = min(placeholder_width / img_width, placeholder_height / img_height)
-                img_width *= scale
-                img_height *= scale
+            # 计算宽度和高度方向的适配比例，并选择较小的值，确保图片不会超出 placeholder
+            scale = min(placeholder_width / img_width, placeholder_height / img_height)
+
+            # 应用缩放比例
+            img_width *= scale
+            img_height *= scale
 
             # 计算图片左上角位置，使其中心对准 placeholder 中心
             left = placeholder_center_x - img_width / 2

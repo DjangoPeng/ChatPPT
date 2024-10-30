@@ -41,7 +41,7 @@ def generate_contents(message, history):
 
         # 获取上传的文件列表，如果存在则处理每个文件
         for uploaded_file in message.get("files", []):
-            LOG.debug(f"[上传文件]: {uploaded_file}")
+            LOG.info(f"[上传文件]: {uploaded_file}")
             # 获取文件的扩展名，并转换为小写
             file_ext = os.path.splitext(uploaded_file)[1].lower()
             if file_ext in ('.wav', '.flac', '.mp3'):
@@ -54,13 +54,16 @@ def generate_contents(message, history):
                     image_desc = chat_with_image(uploaded_file, text_input)
                 else:
                     image_desc = chat_with_image(uploaded_file)
+                LOG.info(f"[图像解释]：{image_desc}")
                 return image_desc
             # 使用 Docx 文件作为素材创建 PowerPoint
             elif file_ext in ('.docx', '.doc'):
                 # 调用 generate_markdown_from_docx 函数，获取 markdown 内容
                 raw_content = generate_markdown_from_docx(uploaded_file)
                 markdown_content = content_formatter.format(raw_content)
-                return content_assistant.adjust_single_picture(markdown_content)
+                input_text = content_assistant.adjust_single_picture(markdown_content)
+                LOG.info(f"[文档内容]：{input_text}")
+                return input_text
             else:
                 LOG.debug(f"[格式不支持]: {uploaded_file}")
 
@@ -75,7 +78,7 @@ def generate_contents(message, history):
     except Exception as e:
         LOG.error(f"[内容生成错误]: {e}")
         # 抛出 Gradio 错误，以便在界面上显示友好的错误信息
-        raise gr.Error(f"网络问题，请重试:)")
+        raise gr.Error(f"【提示】网络问题，请重试")
         
 
 # 定义处理生成按钮点击事件的函数

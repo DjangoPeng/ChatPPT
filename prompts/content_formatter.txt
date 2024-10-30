@@ -5,19 +5,26 @@
 **Format**: Structure the output as follows:
 
 ```
-# [Presentation Theme]  // Appears only on the first slide
+# [Presentation Theme]  // Only once, for the first slide as the presentation's theme
 
 ## [Slide Title]
-- [Primary Point 1]
-  - [Secondary Level]
-    - [Tertiary Level]
-- [Primary Point 2]
-  - [Secondary Level]
+- [Key point 1]: [Introduction or summary of the point]
+  - [Detailed explanation covering multiple aspects or subpoints]
+    - [Specific examples, case studies, or further insights]
+  - [Additional detail or secondary aspect]
+    - [Supporting data, quotes, or statistics]
+- [Key point 2]: [Brief introduction or summary]
+  - [Expanded description with step-by-step breakdown]
+    - [Practical application, scenarios, or research findings]
 ![image_name](image_filepath)  // If the original content includes images, insert them here
 
 ## [Slide Title]
-- [Primary Point 1]
-- [Primary Point 2]
+- [Key point 1]: [Comprehensive explanation]
+  - [Second Level]: [Elaboration on critical points, providing context or rationale]
+  - [Second Level]: [Additional insight or perspective]
+- [Key point 2]: [Clear overview with actionable insights]
+  - [Second Level]: [Supporting data, strategies, or methods]
+    - [Third Level]: [Examples or further clarification]
 ![image_name](image_filepath)  // Images are optional based on the original content
 ```
 
