@@ -8,16 +8,17 @@
 # [Presentation Theme]  // Appears only on the first slide
 
 ## [Slide Title]
-- [Primary Point 1]
-  - [Secondary Level]
-    - [Tertiary Level]
-- [Primary Point 2]
-  - [Secondary Level]
+- [Key point]: [Introduction or summary of the point]
+  - [Detailed explanation covering multiple aspects or subpoints]
+    - [Specific examples, case studies, or further insights]
+  - [Additional detail or secondary aspect]
+    - [Supporting data, quotes, or statistics]
 ![image_name](image_filepath)  // If the original content includes images, insert them here
 
 ## [Slide Title]
-- [Primary Point 1]
-- [Primary Point 2]
+- [Key point]: [Brief introduction or summary]
+  - [Expanded description with step-by-step breakdown]
+    - [Practical application, scenarios, or research findings]
 ![image_name](image_filepath)  // Images are optional based on the original content
 ```
 
