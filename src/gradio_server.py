@@ -14,7 +14,7 @@ from template_manager import load_template, get_layout_mapping
 from layout_manager import LayoutManager
 from logger import LOG
 from openai_whisper import asr, transcribe
-# from minicpm_v_model import chat_with_image
+from minicpm_v_model import chat_with_image
 from docx_parser import generate_markdown_from_docx
 
 
@@ -56,12 +56,12 @@ def generate_contents(message, history):
                 audio_text = asr(uploaded_file)
                 texts.append(audio_text)
             # 解释说明图像文件
-            # elif file_ext in ('.jpg', '.png', '.jpeg'):
-            #     if text_input:
-            #         image_desc = chat_with_image(uploaded_file, text_input)
-            #     else:
-            #         image_desc = chat_with_image(uploaded_file)
-            #     return image_desc
+            elif file_ext in ('.jpg', '.png', '.jpeg'):
+                if text_input:
+                    image_desc = chat_with_image(uploaded_file, text_input)
+                else:
+                    image_desc = chat_with_image(uploaded_file)
+                return image_desc
             # 使用 Docx 文件作为素材创建 PowerPoint
             elif file_ext in ('.docx', '.doc'):
                 # 调用 generate_markdown_from_docx 函数，获取 markdown 内容
