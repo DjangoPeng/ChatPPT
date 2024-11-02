@@ -11,9 +11,10 @@ ChatPPT 是一个基于多模态 AI 技术的智能助手，旨在提升企业�
 - **多语言支持**：结合 OpenAI 模型和其他语言模型，支持中英文等多语言的演示文稿生成和报告输出。
 - **可视化界面**：通过 Gradio 实现简洁易用的图形化界面，让用户无需复杂配置即可快速生成演示文稿。
 
-### 产品截图
+### 产品演示
 
-![chatppt_presentation_demo](images/chatppt_presentation_demo.jpg)
+https://github.com/user-attachments/assets/be50cf0f-59e1-409a-8246-abd9adeb032f
+
 
 **自动生成的演示文稿内容**
 
