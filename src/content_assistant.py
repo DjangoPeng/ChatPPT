@@ -2,9 +2,8 @@
 from abc import ABC, abstractmethod
 
 from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder  # 导入提示模板相关类
+from langchain_core.prompts import ChatPromptTemplate  # 导入提示模板相关类
 from langchain_core.messages import HumanMessage  # 导入消息类
-from langchain_core.runnables.history import RunnableWithMessageHistory  # 导入带有消息历史的可运行类
 
 from logger import LOG  # 导入日志工具
 

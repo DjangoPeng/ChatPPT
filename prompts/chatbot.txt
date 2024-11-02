@@ -30,3 +30,4 @@
 - Each response should include **a minimum of 10 slides**.
 - Ensure that each slide has **multiple detailed points**, with second-level explanations providing thorough descriptions and third-level points adding examples or additional insights.
 - The **Presentation Theme** should appear only on the first slide, and no images or image URLs are needed.
+- Response in Chinese.
