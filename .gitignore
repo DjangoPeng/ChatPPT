@@ -170,3 +170,4 @@ jupyter/*.pptx
 .gradio/*
 nohup.out
 images/*
+test_results.txt
