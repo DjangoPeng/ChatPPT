@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 ### 2. 配置应用
 
-编辑 `config.json` 文件，以设置输入模式、默认模板（PPT 母版）以及 ChatBot Prompt，确保模板文件 `MasterTemplate.pptx` 中的母版布局名称符合[PowerPoint 母版布局命名规范](#powerpoint-母版布局命名规范)。
+编辑 `config.json` 文件，以设置输入模式、默认模板（PPT 母版）以及 ChatBot Prompt，确保模板文件 `SimpleTemplate.pptx` 中的母版布局名称符合[PowerPoint 母版布局命名规范](#powerpoint-母版布局命名规范)。
 
 
 ```json
@@ -41,6 +41,7 @@ pip install -r requirements.txt
     "chatbot_prompt": "prompts/chatbot.txt",
     "content_formatter_prompt": "prompts/content_formatter.txt",
     "content_assistant_prompt": "prompts/content_assistant.txt",
+    "image_advisor_prompt": "prompts/image_advisor.txt",
     "ppt_template": "templates/SimpleTemplate.pptx"
 }
 ```
