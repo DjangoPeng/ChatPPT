@@ -10,6 +10,9 @@
   - [3. 如何运行](#3-如何运行)
     - [A. 作为 Gradio 服务运行](#a-作为-gradio-服务运行)
     - [B. 命令行方式运行](#b-命令行方式运行)
+- [使用 Docker 部署服务](#使用-docker-部署服务)
+  - [1. 运行 Docker 容器](#1-运行-docker-容器)
+  - [2. 配置环境变量](#2-配置环境变量)
 - [PowerPoint 母版布局命名规范](#powerpoint-母版布局命名规范)
 - [单元测试](#单元测试)
   - [单元测试和验证脚本 `validate_tests.sh`](#单元测试和验证脚本-validate_testssh)
@@ -84,7 +87,7 @@ pip install -r requirements.txt
 python src/gradio_server.py
 ```
 
-#### 命令行方式运行
+#### B. 命令行方式运行
 
 您可以通过命令行模式运行 ChatPPT：
 
@@ -93,6 +96,34 @@ python src/main.py test_input.md
 ```
 
 通过此模式，您可以手动提供 PowerPoint 文件内容（格式请参考：[ChatPPT 输入文本格式说明](docs/ppt_input_format.md)），并按照配置的 [PowerPoint 模板](templates/MasterTemplate.pptx),生成演示文稿。
+
+## 使用 Docker 部署服务
+
+ChatPPT 提供了 Docker 支持，以便在隔离环境中运行。以下是使用 Docker 运行的步骤。
+
+### 1. 运行 Docker 容器
+
+使用以下命令运行 ChatPPT 指定版本（如:v0.7）Docker 容器服务。关于如何 [使用 Docker 构建与验证](#使用-docker-构建与验证)。
+
+```sh
+docker run -it -p 7860:7860 -e LANGCHAIN_API_KEY=$LANGCHAIN_API_KEY -e OPENAI_API_KEY=$OPENAI_API_KEY -v $(pwd)/outputs:/app/outputs chatppt:v0.7
+
+```
+
+### 2. 参数说明
+
+在运行容器时，可以通过环境变量传入`LANGCHAIN_API_KEY` 和 `OPENAI_API_KEY`，例如：
+
+```sh
+-e LANGCHAIN_API_KEY=$LANGCHAIN_API_KEY -e OPENAI_API_KEY=$OPENAI_API_KEY 
+```
+
+将本地的 `outputs` 文件夹挂载到容器内的 `/app/outputs`，便于访问生成的文件。
+
+```sh
+-v $(pwd)/outputs:/app/outputs`
+```
+
 
 ## PowerPoint 母版布局命名规范
 
@@ -137,7 +168,9 @@ python src/main.py test_input.md
 - 复制项目的 `requirements.txt` 文件，并安装所有 Python 依赖。
 - 复制项目的所有文件到容器中，并赋予 `validate_tests.sh` 脚本执行权限。
 - 在构建过程中执行 `validate_tests.sh` 脚本，以确保所有单元测试通过。如果测试失败，构建过程将中止。
-- 构建成功后，将默认运行 `src/main.py` 作为容器的入口点，以启动 ChatPPT 服务。
+- 构建成功后，将默认运行 `src/main.py` 作为容器的入口
+
+点，以启动 ChatPPT 服务。
 
 ### 2. `build_image.sh`
 
@@ -150,14 +183,12 @@ python src/main.py test_input.md
 
 #### 使用示例
 ```bash
-chmod +x build_image.sh
 ./build_image.sh
 ```
 
-![build_docker_image](images/build_docker_image.jpg)
+![build_docker_image](images/build_docker_image.png)
 
 通过这些脚本和配置文件，ChatPPT 项目可以在不同的开发分支中确保构建的 Docker 镜像基于通过单元测试的代码，从而提高了代码质量和部署的可靠性。
-
 
 ### 贡献
 

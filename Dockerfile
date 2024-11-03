@@ -1,24 +1,25 @@
-# Dockerfile
-
-# 使用官方的 Python 基础镜像
+# 使用 Python 3.10 slim 作为基础镜像
 FROM python:3.10-slim
 
 # 设置工作目录
 WORKDIR /app
 
-# 复制 requirements.txt 并安装依赖
+# 复制并安装项目依赖
 COPY requirements.txt .
-
-# 安装 Python 依赖
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 复制项目的所有文件到容器
+# 复制项目文件到容器
 COPY . .
 
-# 复制并执行 validate_tests.sh 脚本
-COPY validate_tests.sh .
+# 赋予验证脚本执行权限
 RUN chmod +x validate_tests.sh
+
+# 设置环境变量，以便在运行时可以传入实际的 API Key
+ENV LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+ENV OPENAI_API_KEY=${OPENAI_API_KEY}
+
+# 在构建过程中运行单元测试
 RUN ./validate_tests.sh
 
-# 设置容器入口
+# 设置容器的入口点，默认运行 ChatPPT Gradio Server
 CMD ["python", "src/gradio_server.py"]
