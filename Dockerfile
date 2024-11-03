@@ -21,4 +21,4 @@ RUN chmod +x validate_tests.sh
 RUN ./validate_tests.sh
 
 # 设置容器入口
-CMD ["python", "src/daemon_process.py"]
+CMD ["python", "src/gradio_server.py"]
