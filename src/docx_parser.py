@@ -103,8 +103,8 @@ def generate_markdown_from_docx(docx_filename):
         elif text:
             markdown_content += f'{text}\n\n'  # 普通段落直接添加文本
 
-        # 记录调试信息
-        LOG.debug(f"从 docx 文件解析的 markdown 内容:\n{markdown_content}")
+     # 记录调试信息
+    LOG.debug(f"从 docx 文件解析的 markdown 内容:\n{markdown_content}")
 
     return markdown_content
 
