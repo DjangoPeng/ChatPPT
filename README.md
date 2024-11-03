@@ -142,8 +142,6 @@ docker run -it -p 7860:7860 -e LANGCHAIN_API_KEY=$LANGCHAIN_API_KEY -e OPENAI_AP
 
 ## 单元测试
 
-为了确保 ChatPPT 项目的代码质量和可靠性，我们使用了 `unittest` 模块进行单元测试。关于 `unittest` 及其相关工具（如 `@patch` 和 `MagicMock`）的详细说明，请参考 [单元测试详细说明](docs/unit_test.md)。
-
 ### 单元测试和验证脚本 `validate_tests.sh`
 
 #### 用途
